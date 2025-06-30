@@ -12,12 +12,7 @@
 - **Notifications**: In-app, with full CRUD
 - Responsive and clean UI
 - Real-time feedback and error handling
-
-## Demo
-
-- **Login:**  
-  
-- **Dashboard:**  
+ 
   
 
 ## Technologies Used
@@ -27,4 +22,3 @@
 - **Database:** MongoDB Atlas, PyMongo
 - **Auth/Sessions:** Flask sessions, secure cookies
 - **Environment:** `.env` configuration (no secrets in code)
-
