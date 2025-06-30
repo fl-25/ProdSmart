@@ -281,3 +281,66 @@ if (document.readyState === 'loading') {
 } else {
     initializeLearningHub();
 }
+
+// Replace all localStorage CRUD for schedules and notifications with HTTP fetch calls to Flask backend
+async function apiRequest(url, method = 'GET', body = null) {
+    const opts = {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+    };
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch(url, opts);
+    if (!res.ok) throw new Error((await res.json()).error || 'API error');
+    return await res.json();
+}
+
+// Replace all localStorage.getItem('schedules') and setItem('schedules') with API calls
+async function loadSchedules() {
+    try {
+        schedules = await apiRequest('/api/schedules');
+    } catch (e) {
+        schedules = [];
+        alert('Failed to load schedules: ' + e.message);
+    }
+}
+
+async function saveSchedule(schedule) {
+    try {
+        const newSchedule = await apiRequest('/api/schedules', 'POST', schedule);
+        schedules.push(newSchedule);
+        renderSchedules();
+    } catch (e) {
+        alert('Failed to add schedule: ' + e.message);
+    }
+}
+
+async function updateSchedule(scheduleId, updates) {
+    try {
+        await apiRequest(`/api/schedules/${scheduleId}`, 'PUT', updates);
+        await loadSchedules();
+        renderSchedules();
+    } catch (e) {
+        alert('Failed to update schedule: ' + e.message);
+    }
+}
+
+async function deleteSchedule(scheduleId) {
+    try {
+        await apiRequest(`/api/schedules/${scheduleId}`, 'DELETE');
+        await loadSchedules();
+        renderSchedules();
+    } catch (e) {
+        alert('Failed to delete schedule: ' + e.message);
+    }
+}
+
+async function deleteAllSchedules() {
+    try {
+        await apiRequest('/api/schedules', 'DELETE');
+        await loadSchedules();
+        renderSchedules();
+    } catch (e) {
+        alert('Failed to delete all schedules: ' + e.message);
+    }
+}

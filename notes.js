@@ -77,8 +77,65 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Notes state
     let allNotes = JSON.parse(localStorage.getItem('notes') || '[]');
 
-    function saveNotes() {
-        localStorage.setItem('notes', JSON.stringify(allNotes));
+    async function apiRequest(url, method = 'GET', body = null) {
+        const opts = {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        };
+        if (body) opts.body = JSON.stringify(body);
+        const res = await fetch(url, opts);
+        if (!res.ok) throw new Error((await res.json()).error || 'API error');
+        return await res.json();
+    }
+
+    async function loadNotes() {
+        try {
+            allNotes = await apiRequest('/api/notes');
+        } catch (e) {
+            allNotes = [];
+            alert('Failed to load notes: ' + e.message);
+        }
+    }
+
+    async function saveNote(note) {
+        try {
+            const newNote = await apiRequest('/api/notes', 'POST', note);
+            allNotes.unshift(newNote);
+            displayNotes();
+        } catch (e) {
+            alert('Failed to add note: ' + e.message);
+        }
+    }
+
+    async function updateNote(noteId, updates) {
+        try {
+            await apiRequest(`/api/notes/${noteId}`, 'PUT', updates);
+            await loadNotes();
+            displayNotes();
+        } catch (e) {
+            alert('Failed to update note: ' + e.message);
+        }
+    }
+
+    async function deleteNote(noteId) {
+        try {
+            await apiRequest(`/api/notes/${noteId}`, 'DELETE');
+            await loadNotes();
+            displayNotes();
+        } catch (e) {
+            alert('Failed to delete note: ' + e.message);
+        }
+    }
+
+    async function deleteAllNotes() {
+        try {
+            await apiRequest('/api/notes', 'DELETE');
+            await loadNotes();
+            displayNotes();
+        } catch (e) {
+            alert('Failed to delete all notes: ' + e.message);
+        }
     }
 
     // Function to display attached files for a note
@@ -158,13 +215,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        allNotes.unshift({
+        saveNote({
             title,
             content,
             attachments: currentAttachedFiles // Store attached file metadata
         });
-        saveNotes();
-        displayNotes();
 
         // Clear inputs after adding note
         noteTitleInput.value = '';
@@ -183,9 +238,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (target.classList.contains('delete-note')) {
             if (confirm('Are you sure you want to delete this note?')) {
-                allNotes.splice(index, 1);
-                saveNotes();
-                displayNotes();
+                deleteNote(allNotes[index].id);
             }
         } else if (target.classList.contains('edit-note')) {
             const noteToEdit = allNotes[index];
@@ -196,8 +249,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Remove the note so that 'Add Note' effectively saves the edited version
             allNotes.splice(index, 1);
-            saveNotes(); // Save after removal to ensure it's gone before re-adding
-            displayNotes(); // Re-display without the note being edited
+            updateNote(noteToEdit.id, {
+                title: noteToEdit.title,
+                content: noteToEdit.content,
+                attachments: noteToEdit.attachments
+            });
 
             noteTitleInput.focus();
         }

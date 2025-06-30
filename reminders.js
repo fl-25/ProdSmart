@@ -207,4 +207,65 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('resize', function() {
         if (window.innerWidth > 900) closeSidebar();
     });
+
+    // Replace all localStorage CRUD for reminders and notifications with HTTP fetch calls to Flask backend
+    async function apiRequest(url, method = 'GET', body = null) {
+        const opts = {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        };
+        if (body) opts.body = JSON.stringify(body);
+        const res = await fetch(url, opts);
+        if (!res.ok) throw new Error((await res.json()).error || 'API error');
+        return await res.json();
+    }
+
+    // Replace all localStorage.getItem('reminders') and setItem('reminders') with API calls
+    async function loadReminders() {
+        try {
+            reminders = await apiRequest('/api/reminders');
+        } catch (e) {
+            reminders = [];
+            alert('Failed to load reminders: ' + e.message);
+        }
+    }
+    async function saveReminder(reminder) {
+        try {
+            const newReminder = await apiRequest('/api/reminders', 'POST', reminder);
+            reminders.push(newReminder);
+            renderReminders();
+        } catch (e) {
+            alert('Failed to add reminder: ' + e.message);
+        }
+    }
+    async function updateReminder(reminderId, updates) {
+        try {
+            await apiRequest(`/api/reminders/${reminderId}`, 'PUT', updates);
+            await loadReminders();
+            renderReminders();
+        } catch (e) {
+            alert('Failed to update reminder: ' + e.message);
+        }
+    }
+    async function deleteReminder(reminderId) {
+        try {
+            await apiRequest(`/api/reminders/${reminderId}`, 'DELETE');
+            await loadReminders();
+            renderReminders();
+        } catch (e) {
+            alert('Failed to delete reminder: ' + e.message);
+        }
+    }
+    async function deleteAllReminders() {
+        try {
+            await apiRequest('/api/reminders', 'DELETE');
+            await loadReminders();
+            renderReminders();
+        } catch (e) {
+            alert('Failed to delete all reminders: ' + e.message);
+        }
+    }
+
+    // Repeat similar for notifications
 });

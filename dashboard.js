@@ -558,4 +558,66 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Also call after tasks or schedules change
     window.addEventListener('storage', syncDashboardVisuals);
     document.addEventListener('notification-added', syncDashboardVisuals);
+
+    // Replace all localStorage CRUD for tasks, reminders, schedules, and notifications with HTTP fetch calls to Flask backend
+    // Add helper for API calls
+    async function apiRequest(url, method = 'GET', body = null) {
+        const opts = {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        };
+        if (body) opts.body = JSON.stringify(body);
+        const res = await fetch(url, opts);
+        if (!res.ok) throw new Error((await res.json()).error || 'API error');
+        return await res.json();
+    }
+
+    // Replace all localStorage.getItem('tasks') and setItem('tasks') with API calls
+    async function loadTasks() {
+        try {
+            tasks = await apiRequest('/api/tasks');
+        } catch (e) {
+            tasks = [];
+            alert('Failed to load tasks: ' + e.message);
+        }
+    }
+    async function saveTask(task) {
+        try {
+            const newTask = await apiRequest('/api/tasks', 'POST', task);
+            tasks.unshift(newTask);
+            renderTasks();
+        } catch (e) {
+            alert('Failed to add task: ' + e.message);
+        }
+    }
+    async function updateTask(taskId, updates) {
+        try {
+            await apiRequest(`/api/tasks/${taskId}`, 'PUT', updates);
+            await loadTasks();
+            renderTasks();
+        } catch (e) {
+            alert('Failed to update task: ' + e.message);
+        }
+    }
+    async function deleteTask(taskId) {
+        try {
+            await apiRequest(`/api/tasks/${taskId}`, 'DELETE');
+            await loadTasks();
+            renderTasks();
+        } catch (e) {
+            alert('Failed to delete task: ' + e.message);
+        }
+    }
+    async function deleteAllTasks() {
+        try {
+            await apiRequest('/api/tasks', 'DELETE');
+            await loadTasks();
+            renderTasks();
+        } catch (e) {
+            alert('Failed to delete all tasks: ' + e.message);
+        }
+    }
+
+    // Repeat similar for reminders, schedules, notifications
 });
