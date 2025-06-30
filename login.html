@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ProdSmart</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--main-bg);
+        }
+
+        .auth-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--gray);
+        }
+
+        .form-group input {
+            padding: 0.75rem;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .auth-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .auth-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .auth-links {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .auth-links a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .auth-links a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="sidebar-logo">
+                    <span class="logo-circle">P</span> ProdSmart
+                </div>
+                <h2>Welcome Back</h2>
+            </div>
+            <form class="auth-form" id="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="auth-btn">Login</button>
+                <div class="error-message" id="error-message"></div>
+            </form>
+            <div class="auth-links">
+                <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+    <script>
+        // MODIFIED: The script now handles the new logic
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.style.display = 'none'; // Hide error on new attempt
+
+            try {
+                const result = await auth.login(email, password);
+
+                if (result === true) {
+                    // --- SUCCESS ---
+                    window.location.href = 'dashboard.html';
+                } else if (result === 'USER_NOT_FOUND') {
+                    // --- USER DOES NOT EXIST ---
+                    // This is your requested feature: redirect to signup
+                    alert('This account does not exist. Please sign up.');
+                    window.location.href = 'signup.html';
+                } else if (result === 'INVALID_PASSWORD') {
+                    // --- WRONG PASSWORD ---
+                    errorMessage.textContent = 'Invalid email or password';
+                    errorMessage.style.display = 'block';
+                } else {
+                    // --- OTHER ERRORS ---
+                    errorMessage.textContent = 'An unexpected error occurred.';
+                    errorMessage.style.display = 'block';
+                }
+            } catch (error) {
+                console.error("Login page error:", error);
+                errorMessage.textContent = 'An error occurred. Please try again.';
+                errorMessage.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>

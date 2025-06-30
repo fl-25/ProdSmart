@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - ProdSmart</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="dashboard.html" class="sidebar-logo">
+          <span class="logo-circle">P</span>
+          ProdSmart
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-link active">Dashboard</a>
+        <a href="reminders.html" class="nav-link">Reminders</a>
+        <a href="learning_hub.html" class="nav-link">Learning Hub</a>
+        <a href="notes.html" class="nav-link">Notes</a>
+        <a href="#" class="nav-link profile-link active">Profile</a>
+      </nav>
+      <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="theme-toggle">
+          <input type="checkbox" id="theme-toggle" />
+          <span class="slider round"></span>
+        </label>
+        <span>Dark Mode</span>
+      </div>
+      <button class="signout-btn">Sign out</button>
+    </aside>
+    <main class="main-content">
+      <header class="main-header">
+        <button id="hamburger-menu" class="hamburger-menu" aria-label="Open sidebar" type="button">&#9776;</button>
+        <h1 id="dashboard-tagline">Organize Your Day, Control Your Time.</h1>
+      </header>
+      <div class="dashboard-grid">
+
+
+        <!-- Calendar Card -->
+        <div class="dashboard-card calendar-card">
+          <div class="calendar-header">
+            <button id="prev-month" class="calendar-arrow-btn">&lt;</button>
+            <span id="month-year"></span>
+            <button id="next-month" class="calendar-arrow-btn">&gt;</button>
+          </div>
+          <div class="calendar-labels">
+            <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
+          </div>
+          <div class="calendar-dates" id="calendar-dates">
+            <!-- Calendar days will be loaded here by JavaScript -->
+          </div>
+        </div>
+        <!-- My Tasks Card -->
+        <div class="dashboard-card tasks-card">
+          <h3 class="card-title">My Tasks (<span id="task-count">0</span>)</h3>
+          <div id="add-task-form">
+            <input type="text" id="new-task-input" placeholder="Add a new task...">
+            <button id="add-task-btn" aria-label="Add task">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+          <ul class="tasks-list" id="tasks-list">
+            <!-- Tasks will be loaded here by JavaScript -->
+          </ul>
+          <button class="delete-all-btn" id="delete-all-tasks-btn">Delete All Tasks</button>
+        </div>
+        <!-- Notifications Card -->
+        <div class="dashboard-card notifications-card">
+          <h3 class="notifications-header">Notifications</h3>
+          <!-- Added an ID to the notifications list container -->
+          <div class="notifications-list" id="notifications-list">
+            <!-- Notifications will be loaded here by JavaScript -->
+          </div>
+          <button id="remove-all-notifications-btn" style="display:none;">Remove All</button>
+        </div>
+
+        <!-- Categories Overview Card -->
+        <div class="dashboard-card categories-card">
+          <h3 class="categories-header">Categories overview</h3>
+          <div id="category-filters">
+            <button class="filter-btn active" data-category="tasks">Tasks</button>
+            <button class="filter-btn" data-category="reminders">Reminders</button>
+            <button class="filter-btn" data-category="schedules">Learning</button>
+          </div>
+          <div id="category-display-list">
+            <!-- Items will be displayed here dynamically -->
+          </div>
+        </div>
+
+        <!-- Progress Overview Card -->
+        <div class="dashboard-card progress-card">
+          <h3 class="progress-header">Progress overview</h3>
+          <div id="learning-hub-progress">
+            <h4>Learning Hub Progress</h4>
+            <canvas id="learningHubChart"></canvas>
+          </div>
+          <div id="tasks-progress" style="margin-top: 20px;">
+            <h4>Tasks Progress</h4>
+            <canvas id="tasksChart"></canvas>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Calendar Date Details Modal -->
+      <div id="calendar-modal-overlay" class="calendar-modal-overlay" style="display:none;">
+        <div class="calendar-modal">
+          <button class="calendar-modal-close" id="calendar-modal-close" aria-label="Close">&times;</button>
+          <h3 id="calendar-modal-title">Items for <span id="calendar-modal-date"></span></h3>
+          <ul id="calendar-modal-list" class="calendar-modal-list"></ul>
+          <div id="calendar-modal-empty" class="calendar-modal-empty" style="display:none;">No items scheduled for this day.</div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="auth.js"></script>
+  <script src="theme-toggle.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+
+</html>

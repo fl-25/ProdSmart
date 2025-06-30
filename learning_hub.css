@@ -1,0 +1,276 @@
+body, html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--main-bg);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Subtle radial overlay for 3D depth */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(40px);
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    background-color: transparent;
+    color: var(--text-main);
+    padding: 30px;
+    border-radius: 15px;
+    margin: 20px auto;
+}
+
+#digital-clock {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0d47a1;
+    margin-top: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    text-shadow: 0 0 8px rgba(13, 71, 161, 0.7);
+}
+
+#learning-schedule {
+    margin-top: 40px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"] {
+    padding: 10px 14px;
+    font-size: 1rem;
+    border: 1.5px solid #b0c4de;
+    border-radius: 8px;
+    margin-right: 10px;
+    width: 160px;
+    max-width: calc(33% - 15px);
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.85);
+    /* Slightly transparent inputs */
+    backdrop-filter: saturate(180%) blur(8px);
+    -webkit-backdrop-filter: saturate(180%) blur(8px);
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus {
+    border-color: #2196f3;
+    outline: none;
+    box-shadow: 0 0 8px rgba(33, 150, 243, 0.7);
+}
+
+#add-lesson-btn {
+    background-color: #2196f3;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.5);
+}
+
+#add-lesson-btn:hover {
+    background-color: #1565c0;
+    box-shadow: 0 6px 18px rgba(21, 101, 192, 0.7);
+}
+
+ul#schedule-list {
+    padding: 0;
+    list-style: none;
+    margin: 20px 0 0 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+ul#schedule-list li {
+    margin-bottom: 10px;
+    padding: 12px 20px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(33, 150, 243, 0.3);
+    font-size: 1.1rem;
+    color: var(--text-main);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-btn {
+    background-color: #2196f3;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.6);
+}
+
+.delete-btn:hover {
+    background-color: #1565c0;
+    box-shadow: 0 4px 12px rgba(21, 101, 192, 0.8);
+}
+
+#delete-all-btn {
+    margin-top: 20px;
+    background-color: #2196f3;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    display: none;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.5);
+}
+
+#delete-all-btn:hover {
+    background-color: #1565c0;
+    box-shadow: 0 6px 18px rgba(21, 101, 192, 0.7);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"] {
+        width: calc(100% - 20px);
+        margin-right: 0;
+    }
+}
+
+.notify-btn {
+    background-color: #4caf50;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: 8px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.6);
+}
+
+.notify-btn:hover {
+    background-color: #357a38;
+    box-shadow: 0 4px 12px rgba(53, 122, 56, 0.8);
+}
+
+.notify-btn:disabled,
+.notify-btn.activated {
+    background-color: #6c757d !important;
+    cursor: not-allowed;
+    opacity: 0.7;
+    color: #fff;
+}
+
+deleteAllBtn.style.cssText {
+        margin-top: 20px;
+        padding: 10px;
+        font-weight: 600;
+        border-radius: 8px;
+        background-color: #6e6868;
+        color: white;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.2s;
+}
+
+.hamburger-menu {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #222;
+    margin-right: 16px;
+    cursor: pointer;
+    z-index: 1101;
+}
+
+@media (max-width: 900px) {
+    .sidebar {
+        position: fixed;
+        left: -240px;
+        top: 0;
+        width: 220px;
+        height: 100vh;
+        z-index: 1100;
+        transition: left 0.3s cubic-bezier(.4,2,.6,1);
+        box-shadow: 2px 0 16px rgba(44,62,80,0.10);
+    }
+    .sidebar.sidebar-open {
+        left: 0;
+    }
+    .main-content {
+        margin-left: 0;
+        transition: filter 0.3s;
+    }
+    .sidebar-overlay {
+        display: block;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(44,62,80,0.18);
+        z-index: 1099;
+        transition: opacity 0.3s;
+    }
+    .hamburger-menu {
+        display: inline-block;
+    }
+    #learning-schedule {
+        flex-direction: column;
+        gap: 8px;
+    }
+    #learning-schedule input, #add-lesson-btn {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+    .container {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+    .container {
+        padding: 4px;
+    }
+    #learning-schedule input, #add-lesson-btn {
+        font-size: 0.98rem;
+        padding: 10px 8px;
+    }
+}

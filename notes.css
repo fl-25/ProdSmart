@@ -1,0 +1,376 @@
+/* Styling for the main notes page container */
+.notes-page-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 100%;
+    background: var(--card-background);
+    color: var(--text-color-primary);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 32px 24px 24px 24px;
+    max-width: 900px;
+    margin: 32px auto 0 auto;
+}
+
+/* Header for the notes page */
+.notes-header {
+    background: var(--card-background-secondary);
+    padding: 18px 24px 12px 24px;
+    border-radius: 10px 10px 0 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-color-primary);
+    margin-bottom: 18px;
+}
+
+.notes-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-left .icon {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.header-left h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.add-note-btn {
+    background: var(--primary);
+    color: var(--text-color-primary);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.add-note-btn:hover {
+    background: var(--primary-dark);
+}
+
+/* Editor styles */
+#editor-container {
+    background: var(--card-background-secondary);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1.5px solid var(--card-border);
+    min-height: 180px;
+    margin-bottom: 18px;
+    color: var(--text-color-primary);
+}
+
+#note-title-input {
+    width: 80%;
+    padding: 12px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: none;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 16px;
+    outline: none;
+    background: var(--input-background);
+    color: var(--text-color-primary);
+    border: 1.5px solid var(--input-border);
+}
+
+#note-title-input:focus {
+    border-bottom-color: var(--primary);
+    border-color: var(--primary);
+    outline: none;
+}
+
+/* Quill editor toolbar and container */
+#editor {
+    height: 200px;
+    border-radius: 8px;
+}
+
+.ql-toolbar {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background: var(--card-background-secondary);
+    border: 1.5px solid var(--card-border);
+    color: var(--text-color-primary);
+}
+
+.ql-toolbar .ql-formats button svg,
+.ql-toolbar .ql-formats button,
+.ql-toolbar .ql-picker-label,
+.ql-toolbar .ql-picker-item {
+    color: var(--text-color-primary) !important;
+    fill: var(--text-color-primary) !important;
+}
+
+.ql-toolbar .ql-formats button:hover svg,
+.ql-toolbar .ql-formats button:hover {
+    color: var(--primary) !important;
+    fill: var(--primary) !important;
+}
+
+.ql-toolbar .ql-picker-label:hover,
+.ql-toolbar .ql-picker-item:hover {
+    color: var(--primary) !important;
+    fill: var(--primary) !important;
+}
+
+.ql-container {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background: var(--card-background-secondary);
+    color: var(--text-color-primary);
+    border: 1.5px solid var(--card-border);
+}
+
+/* Container for displaying saved notes */
+.notes-display-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding-top: 10px;
+}
+
+.note {
+    background: var(--card-background-secondary);
+    color: var(--text-color-primary);
+    border: 1.5px solid var(--card-border);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 18px 18px 14px 18px;
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.note-title {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--primary);
+    font-weight: 600;
+    background: transparent;
+}
+
+.note-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-note, .delete-note {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.edit-note {
+    color: #2196f3;
+}
+
+.delete-note {
+    color: #e53935;
+}
+
+.note-content {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color-primary);
+    word-wrap: break-word;
+}
+
+/* --- New Styles for File Uploads --- */
+.file-upload-section {
+    margin-bottom: 16px;
+    border: 1px dashed #221f1f;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #a9e2ba;
+    text-align: center;
+    background: var(--input-background);
+}
+
+.file-upload-label {
+    display: inline-block;
+    background-color: var(--secondary); /* A lighter blue/purple color */
+    color: rgb(10, 9, 9);
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+}
+
+.file-upload-label:hover {
+    background-color: var(--secondary-dark);
+}
+
+.file-upload-label i {
+    margin-right: 8px;
+}
+
+#attached-files-display {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+#attached-files-display ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+#attached-files-display ul li {
+    background-color: #e0e0e0;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    display: inline-block; /* To make them appear as tags */
+    margin-right: 5px;
+}
+
+.note-attachments {
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.note-attachments h4 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #444;
+    font-size: 1rem;
+}
+
+.note-attachments ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.note-attachments ul li {
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.note-attachments ul li i {
+    margin-right: 5px;
+    color: var(--primary);
+}
+
+body, html {
+    background: var(--main-bg);
+    color: var(--text-color-primary);
+}
+
+#note-title-input::placeholder,
+.search-bar::placeholder {
+    color: var(--text-color-secondary);
+    opacity: 1;
+}
+
+.delete-note-btn, .edit-note-btn {
+    background: var(--primary);
+    color: var(--text-color-primary);
+}
+
+.delete-note-btn i, .edit-note-btn i {
+    color: var(--text-color-primary) !important;
+}
+
+body.dark-theme .ql-editor {
+    background-color: #fff !important;
+    color: #000 !important;
+}
+
+body.dark-theme .ql-container {
+    border: 1.5px solid #ccc !important;
+}
+
+body.dark-theme #note-title-input {
+    background-color: #fff !important;
+    color: #000 !important;
+    border: 1px solid #ccc !important;
+}
+
+body.dark-theme #note-title-input::placeholder {
+    color: #6c757d !important;
+}
+
+body.dark-theme .notes-header {
+    background: #fff !important;
+}
+body.dark-theme .notes-header h2,
+body.dark-theme .notes-header .icon {
+    color: #000 !important;
+}
+
+body.dark-theme .file-upload-section {
+    background: #e9ecef !important;
+    color: #000 !important;
+}
+body.dark-theme .file-upload-section i,
+body.dark-theme .file-upload-section span,
+body.dark-theme .file-upload-section label {
+    color: #000 !important;
+}
+
+body.dark-theme .ql-toolbar {
+    background: #fff !important;
+}
+body.dark-theme .ql-toolbar .ql-stroke,
+body.dark-theme .ql-toolbar .ql-fill,
+body.dark-theme .ql-toolbar .ql-picker-label,
+body.dark-theme .ql-toolbar .ql-picker-item {
+    color: #000 !important;
+    fill: #000 !important;
+    stroke: #000 !important;
+}
+
+.ql-toolbar .ql-stroke,
+.ql-toolbar .ql-fill,
+.ql-toolbar .ql-picker-label,
+.ql-toolbar .ql-picker-item {
+    color: #000 !important;
+    fill: #000 !important;
+    stroke: #000 !important;
+}
+
+.attachment-link {
+    color: #1976d2;
+    text-decoration: underline;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+body.dark-theme .attachment-link {
+    color: #8a2be2;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Learning Hub - ProdSmart</title>
+  <link rel="stylesheet" href="learning_hub.css" /> <!-- Specific styles for this page -->
+  <link rel="stylesheet" href="dashboard.css" /> <!-- Re-using dashboard styles for sidebar -->
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar for consistent navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="dashboard.html" class="sidebar-logo">
+          <span class="logo-circle">P</span>
+          ProdSmart
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="reminders.html" class="nav-link">Reminders</a>
+        <a href="learning_hub.html" class="nav-link active">Learning Hub</a>
+        <a href="notes.html" class="nav-link">Notes</a>
+        <a href="#" class="nav-link profile-link active">Profile</a>
+      </nav>
+      <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="theme-toggle">
+            <input type="checkbox" id="theme-toggle" />
+            <span class="slider round"></span>
+        </label>
+        <span>Dark Mode</span>
+      </div>
+      <button class="signout-btn">Sign out</button>
+    </aside>
+    <!-- Main content area -->
+    <main class="main-content">
+      <header class="main-header">
+        <button id="hamburger-menu" class="hamburger-menu" aria-label="Open sidebar" type="button">&#9776;</button>
+        <h1>Learning Schedule</h1>
+      </header>
+      <div class="container"> <!-- This container is from your original learning_hub.css -->
+        <div id="digital-clock"></div>
+        <div id="learning-schedule">
+          <input type="text" id="lesson-name" placeholder="Lesson Name" />
+          <input type="date" id="lesson-date" />
+          <input type="time" id="lesson-time" />
+          <button id="add-lesson-btn">Add Lesson</button>
+          <ul id="schedule-list"></ul>
+          <button id="delete-all-btn">Delete All</button>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="auth.js"></script>
+  <script src="theme-toggle.js"></script>
+  <script src="learning_hub.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reminders - ProdSmart</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="reminders.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="sidebar-logo">
+                    <span class="logo-circle">P</span>
+                    ProdSmart
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="reminders.html" class="nav-link active">Reminders</a>
+                <a href="learning_hub.html" class="nav-link">Learning Hub</a>
+                <a href="notes.html" class="nav-link">Notes</a>
+                <a href="#" class="nav-link profile-link active">Profile</a>
+            </nav>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="theme-toggle">
+                    <input type="checkbox" id="theme-toggle" />
+                    <span class="slider round"></span>
+                </label>
+                <span>Dark Mode</span>
+            </div>
+            <button class="signout-btn">Sign out</button>
+        </aside>
+        <main class="main-content">
+            <header class="main-header">
+                <button id="hamburger-menu" class="hamburger-menu" aria-label="Open sidebar" type="button">&#9776;</button>
+                <h1>My Reminders</h1>
+            </header>
+            <section class="reminders-section">
+                <form id="reminder-form">
+                    <input type="text" id="reminder-title" placeholder="Reminder Title" required>
+                    <input type="date" id="reminder-date" required>
+                    <input type="time" id="reminder-time" required>
+                    <button type="submit" id="add-reminder-btn">Add Reminder</button>
+                </form>
+                <ul class="reminders-list" id="reminders-list">
+                    <!-- Reminders will be loaded here -->
+                </ul>
+                <div id="delete-all-container">
+                    <!-- Delete All button will be inserted here by JS -->
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="auth.js"></script>
+    <script src="theme-toggle.js"></script>
+    <script src="reminders.js"></script>
+</body>
+</html>
