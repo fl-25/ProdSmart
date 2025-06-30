@@ -1,51 +1,30 @@
-# ProdSmart Backend (Flask)
+# ProdSmart
 
-## Setup & Run
+**ProdSmart** is a productivity management web app built with a Flask backend and a modern JavaScript frontend. It helps users organize tasks, reminders, notes, and learning schedules—all securely managed with MongoDB.
 
-1. **Install dependencies:**
-   ```bash
-   pip install flask flask-cors
-   ```
+## Features
 
-2. **Run the server:**
-   ```bash
-   python backend/app.py
-   ```
-   - Default port: 5000
-   - Set `PORT` or `FLASK_DEBUG=0` as env vars to change port or disable debug.
+- **User Authentication** (Sign up, Log in, Log out, Secure session handling)
+- **Tasks**: Add, complete, edit, delete
+- **Reminders**: Set, activate, delete, manage notifications
+- **Notes**: Rich content, attachments, searchable
+- **Learning Schedules**: Track lessons, time, completion status
+- **Notifications**: In-app, with full CRUD
+- Responsive and clean UI
+- Real-time feedback and error handling
 
-3. **CORS:**
-   - CORS is enabled for all origins with credentials (cookies/session).
+## Demo
 
-## API Endpoints
+- **Login:**  
+  
+- **Dashboard:**  
+  
 
-- **Auth:**
-  - `POST /api/auth/signup` {email, password, name}
-  - `POST /api/auth/login` {email, password}
-  - `POST /api/auth/logout`
-  - `GET /api/auth/session`
-- **Tasks:** `GET/POST/PUT/DELETE /api/tasks`, `/api/tasks/<id>`
-- **Reminders:** `GET/POST/PUT/DELETE /api/reminders`, `/api/reminders/<id>`
-- **Notes:** `GET/POST/PUT/DELETE /api/notes`, `/api/notes/<id>`
-- **Schedules:** `GET/POST/PUT/DELETE /api/schedules`, `/api/schedules/<id>`
-- **Notifications:** `GET/POST/DELETE /api/notifications`, `/api/notifications/<id>`
+## Technologies Used
 
-All endpoints require authentication (except signup/login/session).
+- **Frontend:** HTML, CSS, JavaScript
+- **Backend:** Python Flask, Flask-CORS
+- **Database:** MongoDB Atlas, PyMongo
+- **Auth/Sessions:** Flask sessions, secure cookies
+- **Environment:** `.env` configuration (no secrets in code)
 
-## MongoDB Migration
-
-- All data is stored in in-memory Python dicts/lists for now.
-- To migrate:
-  - Replace the `db` dict and CRUD logic with `pymongo` queries.
-  - Each resource's CRUD is modularized for easy replacement.
-  - Example: `db['tasks'][user_id]` → `tasks.find({'user_id': user_id})`
-
-## Frontend Integration
-
-- All JS modules use `fetch` with `credentials: 'include'` for session auth.
-- Data format matches the original localStorage structure.
-- All business logic and validation is now server-side.
-
-## Notes
-- Passwords are stored in plaintext for demo only. Use hashing in production.
-- For production, set a strong `SECRET_KEY` and use HTTPS. 
