@@ -388,11 +388,3 @@ if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     debug = os.environ.get('FLASK_DEBUG', '1') == '1'
     app.run(host='0.0.0.0', port=port, debug=debug)
-
-# --- MongoDB Atlas Integration Notes ---
-# - Set MONGO_URI as an environment variable for production security.
-# - Passwords are hashed for security (never store plaintext in production).
-# - All user data is isolated by user_id.
-# - Add indexes to user_id fields for large datasets.
-# - Use .env or secret manager for credentials in production.
-# - Install pymongo and werkzeug: pip install pymongo werkzeug 
